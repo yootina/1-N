@@ -12,4 +12,10 @@
         {{ form }}
         <input type="submit">
     </form>
+
+    <hr>
+
+    {% for comment in article.comment_set.all %}
+        <p>{{ comment.content }}</p>
+    {% endfor %}
 {% endblock %}

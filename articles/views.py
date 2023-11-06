@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Article
+from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 # Create your views here.
 
@@ -13,15 +13,34 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+
+
+
 def detail(request, id):
     article = Article.objects.get(id=id)
     form = CommentForm() # 댓글을 작성하기 위한 form을 만들고 form을 인스턴스화
+
+    # comment_create 후 Comment 목록 조회
+
+    # 첫번째 방법(댓글을 기준으로)
+    # comments = Comment.objects.filter(article=article)
+
+    # 두번째 방법(게시글을 기준으로)
+    # comments = article.comment_set.all()
+
+    # 세번째 방법
+    # HTML코드에서 article.comment_set.all
+
     context = {
         'article': article,
         'form': form,
+        # 'comments': comments,
     }
 
     return render(request, 'detail.html', context)
+
+
+
 
 def create(request):
     if request.method == 'POST':
@@ -39,6 +58,7 @@ def create(request):
     }
 
     return render(request, 'form.html', context)
+
 
 
 
