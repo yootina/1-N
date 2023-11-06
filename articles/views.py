@@ -87,3 +87,11 @@ def comment_create(request, article_id):
         # 첫번째방법은 DB를 뒤지고 두번째방법은 숫자만 찾아오면 되서 상대적으로 두번째방법이 빠르다.
 
         return redirect('articles:detail', id=article_id)
+
+
+
+def comment_delete(request, article_id, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+
+    return redirect('articles:detail', id=article_id)
