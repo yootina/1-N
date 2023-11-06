@@ -8,3 +8,4 @@ class Article(models.Model):
     
 class Comment(models.Model):
     content = models.TextField()
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
